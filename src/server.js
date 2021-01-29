@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const { checkToken } = require("./middlewares/auth");
+const { checkRoles } = require("./middlewares/roles");
 const { connectDb } = require("./db/init");
 const {
   saveProduct,
@@ -21,6 +22,7 @@ app.get("/products", getProducts);
 app.post("/user/signup", saveUser);
 
 app.use(checkToken);
+app.use(checkRoles);
 app.post("/product", saveProduct);
 app.delete("/product/:id", deleteProduct);
 app.put("/product", updateProducts);
